@@ -1,0 +1,17 @@
+#!/bin/sh
+PATH=/usr/local/bin:/usr/local/sbin:~/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+TOKEN="placeholder"
+URL="https://slack.com/api/users.profile.set"
+
+STATUS=`osascript <<-AppleScript
+
+tell application "Spotify"
+	set currentArtist to artist of current track as string
+	set currentTrack to name of current track as string
+
+	return currentArtist & " - " & currentTrack
+end tell
+AppleScript`
+
+curl -v -sS -d 'token='$TOKEN --data-urlencode 'profile={ "status_text": "'"$STATUS"'", "status_emoji": ":musical_note:" }' $URL
