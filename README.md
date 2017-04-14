@@ -10,3 +10,7 @@ Clone this repo `git clone https://github.datto.net/cleavenworth/slackify/` `cd 
 
 The setup script must be run with sudo. Run as follows, replacing $slacktoken with the token you received from the site above.
 `sudo ./setup.sh $slacktoken`
+
+### Remove or unload
+Run `sudo ./uninstall.sh` to remove all components from their installed locations and unload the LaunchDaemon.
+If you'd just like to unload the LaunchDaemon temporarily run `launchctl unload -w /Library/LaunchDaemons/com.cleavenworth.slackify.plist` 
