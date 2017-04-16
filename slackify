@@ -6,12 +6,18 @@ URL="https://slack.com/api/users.profile.set"
 
 STATUS=`osascript <<-AppleScript
 
-tell application "Spotify"
-	set currentArtist to artist of current track as string
-	set currentTrack to name of current track as string
+set appName to "Spotify"
 
-	return currentArtist & " - " & currentTrack
-end tell
+if application appName is running then
+	tell application id (id of application appName)
+		set currentArtist to artist of current track as string
+		set currentTrack to name of current track as string
+
+		end tell
+		return currentArtist & " - " & currentTrack
+else
+	return ""
+end if
 AppleScript`
 
 curl -v -sS -d 'token='$TOKEN --data-urlencode 'profile={ "status_text": "'"$STATUS"'", "status_emoji": ":musical_note:" }' $URL
